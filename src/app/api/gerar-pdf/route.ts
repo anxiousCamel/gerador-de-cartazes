@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import puppeteer from "puppeteer";
 import { PaperFormat } from "@/types/paperFormat";
+import { addHistorico } from "@/utils/fileDatabase";
+import { v4 as uuidv4 } from "uuid";
+import path from "path";
+import fs from "fs";
 
 /**
  * Verifica se o valor recebido é um formato permitido.
@@ -18,7 +22,7 @@ function parseFormato(value: string | null): PaperFormat {
 }
 
 /**
- * Mapeia tamanhos dos formatos.
+ * Mapeia tamanhos dos formatos personalizados.
  */
 const tamanhos: Record<Exclude<PaperFormat, "gradil">, string> & {
     gradil: { width: number; height: number };
@@ -29,6 +33,32 @@ const tamanhos: Record<Exclude<PaperFormat, "gradil">, string> & {
     gradil: { width: 420, height: 594 }, // Equivalente a A2 (4 folhas A4)
 };
 
+/**
+ * Salva o PDF no diretório /public e adiciona no histórico.
+ */
+function savePdfLocally(
+    pdf: Uint8Array,
+    query: URLSearchParams,
+    formato: PaperFormat
+) {
+    const nomeArquivo = `cartaz-${uuidv4()}.pdf`;
+    const outputPath = path.join(process.cwd(), "public", nomeArquivo);
+    fs.writeFileSync(outputPath, Buffer.from(pdf));
+
+    addHistorico({
+        id: uuidv4(),
+        nome: query.get("nome") || "Cartaz",
+        formato,
+        dataHora: new Date().toISOString(),
+        urlArquivo: `/${nomeArquivo}`,
+    });
+
+    return nomeArquivo;
+}
+
+/**
+ * Endpoint para gerar PDF e salvar histórico.
+ */
 export async function GET(req: NextRequest) {
     const query = req.nextUrl.searchParams;
     const params = query.toString();
@@ -54,11 +84,13 @@ export async function GET(req: NextRequest) {
 
     await browser.close();
 
+    const nomeArquivo = savePdfLocally(pdf, query, formato);
+
     return new NextResponse(pdf, {
         status: 200,
         headers: {
             "Content-Type": "application/pdf",
-            "Content-Disposition": "attachment; filename=cartaz.pdf",
+            "Content-Disposition": `attachment; filename=${nomeArquivo}`,
         },
     });
 }
