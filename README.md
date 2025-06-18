@@ -1,36 +1,125 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+# 🖨️ Gerador de Cartazes com Histórico (Next.js + Puppeteer)
 
-First, run the development server:
+![Build](https://img.shields.io/badge/build-passing-brightgreen)
+![License](https://img.shields.io/badge/license-MIT-blue)
+![NextJS](https://img.shields.io/badge/made%20with-Next.js-000000?logo=nextdotjs)
+![Node](https://img.shields.io/badge/node-%3E=18-green)
+![Status](https://img.shields.io/badge/status-100%25%20Functional-success)
+
+Sistema para geração de cartazes promocionais em PDF com diferentes tamanhos (A3, A4, A5 e Gradil), totalmente responsivo e com histórico de arquivos gerados.
+
+## 🔥 Funcionalidades
+
+- 🧾 Formulário para preenchimento dos dados do cartaz
+- 👀 Visualização dinâmica (preview) antes da geração
+- 📄 Exportação de PDF em múltiplos formatos:
+  - A3
+  - A4
+  - A5
+  - Gradil (equivale a 4 folhas A4)
+- 🗃️ Histórico dos PDFs gerados com:
+  - Visualização inline no navegador
+  - Download do arquivo
+  - Filtros de busca e paginação
+  - Exclusão individual de registros
+  - Limpeza total do histórico
+- 🚀 Sistema leve, baseado em Next.js 15 + Puppeteer
+
+## 🏗️ Tecnologias Utilizadas
+
+- ⚙️ Next.js 15 (App Router)
+- 🟦 TypeScript
+- 🦾 Tailwind CSS
+- 🐧 Puppeteer (para geração de PDF realista)
+- 📁 Banco de dados local via JSON (simples, file-based)
+- 🔗 UUID (para IDs únicos dos arquivos)
+
+## 🖥️ Como Executar Localmente
+
+### ✅ Pré-requisitos
+
+- Node.js >= 18
+- npm ou yarn
+
+### 🚀 Instalação
+
+```bash
+# Clone o repositório
+git clone https://github.com/seu-usuario/gerador-de-cartazes.git
+
+# Acesse a pasta
+cd gerador-de-cartazes
+
+# Instale as dependências
+npm install
+# ou
+yarn install
+```
+
+### ▶️ Rodando em desenvolvimento
 
 ```bash
 npm run dev
-# or
+# ou
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Acesse no navegador:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🗂️ Estrutura de Pastas
 
-## Learn More
+```
+gerador-de-cartazes
+├── public
+├── src
+│   ├── app
+│   ├── components
+│   ├── types
+│   ├── utils
+│   └── styles
+├── package.json
+├── tsconfig.json
+├── next.config.ts
+└── README.md
+```
 
-To learn more about Next.js, take a look at the following resources:
+## 📦 Build para Produção
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm run build
+npm start
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## ⚠️ Observações Importantes
 
-## Deploy on Vercel
+- PDFs são salvos na pasta `/public` e listados automaticamente no histórico.
+- A geração de PDF utiliza Puppeteer, por isso requer ambiente com Chromium. Funciona em Windows, Linux e Mac.
+- O banco de dados é um arquivo JSON localizado em:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+src/app/api/historico/historico.json
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🚀 Melhorias Futuras (Sugestões)
+
+- 🔗 Integração com bancos como SQLite ou MongoDB
+- 🌐 Deploy na Vercel ou servidor próprio
+- 👥 Sistema multiusuário com login
+- 🎨 Templates personalizados para cartazes
+- 📱 Versão mobile (PWA ou aplicativo)
+
+## 👨‍💻 Autor
+
+Desenvolvido por **Luiz Vinicius Ventura Belmonte**.
+
+- 💼 [LinkedIn](https://www.linkedin.com/in/luizbelmontedev/)
+- ✉️ Contato: luizbelmonte.dev@gmail.com
+
+## 📄 Licença
+
+Este projeto está sob a licença MIT. Consulte o arquivo [LICENSE](LICENSE) para mais informações.
