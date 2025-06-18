@@ -32,7 +32,7 @@ export default function FormCartaz({ onChange }: Props) {
     return (
         <div className="bg-white rounded-lg shadow-md p-6 w-full">
             <h2 className="text-xl font-bold mb-4 text-gray-800 flex items-center gap-2">
-                📝 Dados do Cartaz
+                Dados do Cartaz
             </h2>
 
             <div className="space-y-4">
