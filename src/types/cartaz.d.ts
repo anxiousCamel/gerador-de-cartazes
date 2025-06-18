@@ -11,4 +11,6 @@ export interface DadosCartaz {
     imagemCartaz?: string;
     imagemProduto?: string;
     logoLoja?: string;
+
+    [key: string]: string | number | undefined;
 }

@@ -1,3 +1,5 @@
+// src/components/previewCartaz.tsx
+
 "use client";
 
 import { DadosCartaz } from "@/types/cartaz";
